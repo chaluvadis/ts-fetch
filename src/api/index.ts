@@ -4,8 +4,10 @@ export class Api {
             let response = await fetch(path);
             return await response.json() as T;
         } catch (error) {
-            console.log(error);
-            return new Error("Error in get");
+            if (!(error instanceof Error)) {
+                error = new Error(error as string);
+            }
+            return error;
         }
     }
     public async post<T>(path: string, body: any) {
@@ -19,8 +21,10 @@ export class Api {
             });
             return await response.json() as T;
         } catch (error) {
-            console.log(error);
-            return new Error("Error in post");
+            if (!(error instanceof Error)) {
+                error = new Error(error as string);
+            }
+            return error;
         }
     }
 }
